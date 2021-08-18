@@ -10,7 +10,7 @@ extern "C" {
 /*
  * Class:     jkvasir_engine_rendering_RenderBase
  * Method:    nativeNew
- * Signature: (Ljkvasir/engine/rendering/RenderBase/Type;)J
+ * Signature: (J)J
  */
 JNIEXPORT jlong JNICALL Java_jkvasir_engine_rendering_RenderBase_nativeNew
   (JNIEnv *, jobject, jlong);
@@ -170,7 +170,7 @@ JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_RenderBase_depthBufferActiv
 /*
  * Class:     jkvasir_engine_rendering_RenderBase
  * Method:    getType
- * Signature: ()L;
+ * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_jkvasir_engine_rendering_RenderBase_getType
   (JNIEnv *, jobject);

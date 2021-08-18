@@ -1,6 +1,6 @@
 #include "jkvasir_engine_rendering_RenderBase.h"
-#include "kvasir-include.h"
 #include "jni-aid.h"
+#include <iostream>
 
 using namespace kvasir;
 
@@ -245,21 +245,15 @@ JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_RenderBase_renderMesh3D(JNI
 	shader_base *shader = get_native_ptr<shader_base>(env, jshader);
 	jclass cam_class = env->GetObjectClass(jcam);
 	jobject jpos = env->GetObjectField(jcam, env->GetFieldID(cam_class, "pos", "Ljkvasir/math/Vec3;"));
-	jobject jrot = env->GetObjectField(jcam, env->GetFieldID(cam_class, "rot", "Ljkvasir/math/Vec3"));
-	jclass jpos_class = env->GetObjectClass(jpos);
-	jclass jrot_class = env->GetObjectClass(jrot);
+	jobject jrot = env->GetObjectField(jcam, env->GetFieldID(cam_class, "rot", "Ljkvasir/math/Vec3;"));
 
 	camera3d camera;
 	camera.aspect = env->GetFloatField(jcam, env->GetFieldID(cam_class, "aspect", "F"));
 	camera.near = env->GetFloatField(jcam, env->GetFieldID(cam_class, "near", "F"));
 	camera.far = env->GetFloatField(jcam, env->GetFieldID(cam_class, "far", "F"));
 	camera.fov = env->GetFloatField(jcam, env->GetFieldID(cam_class, "fov", "F"));
-	camera.pos.x() = env->GetFloatField(jpos, env->GetFieldID(jpos_class, "x", "F"));
-	camera.pos.y() = env->GetFloatField(jpos, env->GetFieldID(jpos_class, "y", "F"));
-	camera.pos.z() = env->GetFloatField(jpos, env->GetFieldID(jpos_class, "z", "F"));
-	camera.rot.x() = env->GetFloatField(jrot, env->GetFieldID(jrot_class, "x", "F"));
-	camera.rot.y() = env->GetFloatField(jrot, env->GetFieldID(jrot_class, "y", "F"));
-	camera.rot.z() = env->GetFloatField(jrot, env->GetFieldID(jrot_class, "z", "F"));
+	camera.pos = jVec3(env, jpos);
+	camera.rot = jVec3(env, jrot);
 	base->render_mesh3d(camera, *mesh, shader);
 }
 

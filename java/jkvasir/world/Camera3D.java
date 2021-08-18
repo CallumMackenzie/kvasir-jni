@@ -10,18 +10,26 @@ public class Camera3D {
 	public float far = 200.f;
 	public float aspect = 1.f;
 
-	Vec3 pos;
-	Vec3 rot;
+	private Vec3 pos = new Vec3();
+	private Vec3 rot = new Vec3();
 
-	Mat4 view() {
+	public Vec3 getPos() {
+		return pos;
+	}
+
+	public Vec3 getRot() {
+		return rot;
+	}
+
+	public Mat4 view() {
 		return Mat4.pointedAt(pos.xyz1(), (new Vec4(0, 0, 1).mulMat4(Mat4.rotation(rot.xyz1())).xyz().add(pos)).xyz1());
 	}
 
-	Mat4 perspective() {
+	public Mat4 perspective() {
 		return Mat4.perspective(fov, aspect, near, far);
 	}
 
-	Vec3 lookVector() {
+	public Vec3 lookVector() {
 		return new Vec4(0, 0, 1).mulMat4(Mat4.rotation(rot.xyz1())).xyz();
 	}
 

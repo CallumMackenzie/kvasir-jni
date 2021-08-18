@@ -15,6 +15,14 @@ extern "C" {
 JNIEXPORT jlong JNICALL Java_jkvasir_engine_rendering_Shader_nativeNew
   (JNIEnv *, jobject, jobject);
 
+/*
+ * Class:     jkvasir_engine_rendering_Shader
+ * Method:    compile
+ * Signature: ([Ljava/lang/String;J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_jkvasir_engine_rendering_Shader_compile
+  (JNIEnv *, jobject, jobjectArray, jlong);
+
 #ifdef __cplusplus
 }
 #endif

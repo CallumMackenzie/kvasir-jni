@@ -10,7 +10,7 @@ extern "C" {
 /*
  * Class:     jkvasir_world_Mesh3D
  * Method:    nativeNew
- * Signature: (Ljkvasir/engine/rendering/RenderBase;)J
+ * Signature: ()J
  */
 JNIEXPORT jlong JNICALL Java_jkvasir_world_Mesh3D_nativeNew
   (JNIEnv *, jobject);
@@ -18,7 +18,7 @@ JNIEXPORT jlong JNICALL Java_jkvasir_world_Mesh3D_nativeNew
 /*
  * Class:     jkvasir_world_Mesh3D
  * Method:    loadFromObj
- * Signature: (Ljava/lang/String;)Z
+ * Signature: (Ljkvasir/engine/rendering/RenderBase;Ljava/lang/String;)Z
  */
 JNIEXPORT jboolean JNICALL Java_jkvasir_world_Mesh3D_loadFromObj
   (JNIEnv *, jobject, jobject, jstring);
