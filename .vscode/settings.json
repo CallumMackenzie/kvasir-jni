@@ -1,6 +1,20 @@
 {
 	"files.associations": {
-		"*.tcc": "cpp"
+		"*.tcc": "cpp",
+		"vector": "cpp",
+		"xstring": "cpp",
+		"xutility": "cpp",
+		"iterator": "cpp",
+		"memory": "cpp",
+		"unordered_map": "cpp",
+		"list": "cpp",
+		"initializer_list": "cpp",
+		"type_traits": "cpp",
+		"xhash": "cpp",
+		"atomic": "cpp",
+		"ios": "cpp",
+		"system_error": "cpp",
+		"xiosbase": "cpp"
 	},
 	"C_Cpp.errorSquiggles": "Disabled",
 	"java.project.sourcePaths": [

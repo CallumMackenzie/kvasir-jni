@@ -3,8 +3,14 @@ package jkvasir.world;
 import jkvasir.math.Vec3;
 import jkvasir.math.Vec2;
 import jkvasir.engine.rendering.RenderBase;
+import jkvasir.engine.rendering.Buffer;
+import jkvasir.engine.rendering.Material;
 
 public class Mesh3D extends Position3D {
+	static {
+		System.loadLibrary("kvasir-jni");
+	}
+
 	public static class Triangle {
 		public static class Vert {
 			Vec3 p;
@@ -28,5 +34,13 @@ public class Mesh3D extends Position3D {
 	public native boolean setDiffuseTex(RenderBase base, long col);
 
 	public native boolean setDiffuseTex(RenderBase base, String imgPath);
+
+	public native boolean setTexNum(RenderBase base, long texNum, String filePath);
+
+	public native boolean setTexNum(RenderBase base, long texNum, long colour);
+
+	public native Buffer getBuffer();
+
+	public native Material getMaterial();
 
 }

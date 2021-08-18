@@ -8,8 +8,13 @@ public class Texture {
 
 	private native long nativeNew(RenderBase base);
 
-	public Texture(RenderBase base) {
+	public Texture(RenderBase base) throws RenderException {
 		nativePtr = nativeNew(base);
+		if (nativePtr == 0)
+			throw new RenderException("Native texture_base pointer is NULL.");
+	}
+
+	private Texture() {
 	}
 
 	public native void bind();

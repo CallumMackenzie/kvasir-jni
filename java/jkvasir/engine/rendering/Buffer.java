@@ -6,8 +6,13 @@ public class Buffer {
 	}
 	private long nativePtr = 0;
 
-	public Buffer(RenderBase base) {
+	public Buffer(RenderBase base) throws RenderException {
 		nativePtr = nativeNew(base);
+		if (nativePtr == 0)
+			throw new RenderException("Native buffer_base pointer is NULL.");
+	}
+
+	private Buffer() {
 	}
 
 	private native long nativeNew(RenderBase base);
@@ -22,7 +27,7 @@ public class Buffer {
 
 	public native void attribPtr(long ptrNum, long size, long step, long offset);
 
-	public native void binfBuffer();
+	public native void bindBuffer();
 
 	public native void bindVAO();
 

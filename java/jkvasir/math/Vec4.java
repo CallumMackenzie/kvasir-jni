@@ -386,23 +386,39 @@ public class Vec4 {
 		return filledWith((float) v);
 	}
 
-	float x() {
+	public float x() {
 		return x;
 	}
 
-	float y() {
+	public float y() {
 		return y;
 	}
 
-	float z() {
+	public float z() {
 		return z;
 	}
 
-	float w() {
+	public float w() {
 		return w;
 	}
 
 	public Vec3 xyz() {
 		return new Vec3(x, y, z);
+	}
+
+	public float r() {
+		return x;
+	}
+
+	public float g() {
+		return y;
+	}
+
+	public float b() {
+		return z;
+	}
+
+	public float a() {
+		return w;
 	}
 }

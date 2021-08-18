@@ -25,6 +25,13 @@ include_directories(
 	$ENV{JAVA_HOME}/include/win32 
 	$ENV{JAVA_HOME}/include/linux
 	./native
+	./native/RenderBase
+	./native/Buffer
+	./native/Shader
+	./native/Material
+	./native/TextureImage
+	./native/Texture
+	./native/Mesh3D
 )
 
 link_directories(
@@ -35,10 +42,13 @@ link_directories(
 add_library(
 	kvasir-jni SHARED
 	./native/jni-aid.cpp
-	./native/kvasir-jni.cpp
-	./native/RenderBase.cpp
-	./native/Shader.cpp
-	./native/Mesh3D.cpp
+	./native/RenderBase/RenderBase.cpp
+	./native/Texture/Texture.cpp
+	./native/Material/Material.cpp
+	./native/Shader/Shader.cpp
+	./native/Buffer/Buffer.cpp
+	./native/Mesh3D/Mesh3D.cpp
+	./native/TextureImage/TextureImage.cpp
 )
 target_link_libraries(
 	kvasir-jni

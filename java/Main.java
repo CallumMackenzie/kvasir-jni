@@ -5,6 +5,8 @@ import jkvasir.engine.rendering.*;
 
 class Main {
 	public static void main(String[] args) {
+		Vec3 v = new Vec3();
+		v.toString();
 		FrameManager time = new FrameManager(60);
 		RenderBase base = new RenderBase(RenderBase.Type.OPENGL);
 		if (base.init("JKvasir", 480, 360)) {
@@ -19,12 +21,22 @@ class Main {
 				Mesh3D mesh = new Mesh3D();
 				if (!mesh.loadFromObj(base, "D:\\3D Models\\isont.obj"))
 					throw new RenderException("Mesh could not be loaded.");
-				mesh.setDiffuseTex(base, 0xa0afa0);
+				mesh.setDiffuseTex(base, 0xffffff);
+				Material mat = mesh.getMaterial();
+				if (mat == null)
+					throw new RenderException("Material was null.");
+				System.out.println("Num textures: " + Long.toString(mat.getNumTextures()));
+				TextureImage tex = Texture.colourImage(0x80ff09);
+				System.out.println("Tex col: " + TextureImage.pixelToRGBA(tex.getPixels()[0]).toString());
+				Texture t = new Texture(base);
+				t.setTexture(tex);
+				mat.setTexture(0, t);
 				/////////////////
 				while (true) {
 					if (time.nextFrameReady()) {
 						//////////////// ONUPDATE
-						cam.aspect = (float)base.getAspect();
+						cam.aspect = (float) base.getAspect();
+						cam.debugControls(base, time.delta(), 1.4f, 3.f);
 						base.clear();
 						base.renderMesh3D(cam, mesh, shader);
 						base.swapBuffers();
