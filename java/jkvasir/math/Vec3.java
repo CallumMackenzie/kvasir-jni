@@ -324,15 +324,19 @@ public class Vec3 {
 		return v1.x * v2.x + v1.y * v2.y;
 	}
 
-	float x() {
+	public float x() {
 		return x;
 	}
 
-	float y() {
+	public float y() {
 		return y;
 	}
 
-	float z() {
+	public float z() {
 		return z;
+	}
+
+	public Vec4 xyz1() {
+		return new Vec4(x, y, z, 1.f);
 	}
 }

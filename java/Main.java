@@ -1,16 +1,27 @@
 import jkvasir.math.*;
 import jkvasir.engine.*;
+import jkvasir.world.*;
+import jkvasir.engine.rendering.*;
 
 class Main {
 	public static void main(String[] args) {
-		System.out.println("Hello!");
-		Vec4 v = new Vec4(1, 2, 3, 4);
-		System.out.println(v.toString());
-		FrameManager time = new FrameManager(10);
-		for (int i = 0; i < 15; ++i)
-			if (time.nextFrameReady())
-			{
-				System.out.println(Float.toString(time.delta()) + "s delta time.");
+		FrameManager time = new FrameManager(60);
+		RenderBase base = new RenderBase(RenderBase.Type.OPENGL);
+		if (base.init("JKvasir", 480, 360)) {
+			///////////////// ONSTART
+			base.setClearColour(0xafbfcf);
+			/////////////////
+			while (true) {
+				if (time.nextFrameReady()) {
+					//////////////// ONUPDATE
+					base.clear();
+					base.swapBuffers();
+					////////////////
+				}
+				base.pollEvents();
+				if (base.shouldClose())
+					break;
 			}
+		}
 	}
 }

@@ -402,7 +402,7 @@ public class Vec4 {
 		return w;
 	}
 
-	Vec3 xyz() {
+	public Vec3 xyz() {
 		return new Vec3(x, y, z);
 	}
 }
