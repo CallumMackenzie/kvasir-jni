@@ -19,6 +19,7 @@ class Main {
 				Mesh3D mesh = new Mesh3D();
 				if (!mesh.loadFromObj(base, "D:\\3D Models\\isont.obj"))
 					throw new RenderException("Mesh could not be loaded.");
+				mesh.setDiffuseTex(base, 0xa0afa0);
 				/////////////////
 				while (true) {
 					if (time.nextFrameReady()) {

@@ -23,6 +23,22 @@ JNIEXPORT jlong JNICALL Java_jkvasir_world_Mesh3D_nativeNew
 JNIEXPORT jboolean JNICALL Java_jkvasir_world_Mesh3D_loadFromObj
   (JNIEnv *, jobject, jobject, jstring);
 
+/*
+ * Class:     jkvasir_world_Mesh3D
+ * Method:    setDiffuseTex
+ * Signature: (Ljkvasir/engine/rendering/RenderBase;J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_jkvasir_world_Mesh3D_setDiffuseTex__Ljkvasir_engine_rendering_RenderBase_2J
+  (JNIEnv *, jobject, jobject, jlong);
+
+/*
+ * Class:     jkvasir_world_Mesh3D
+ * Method:    setDiffuseTex
+ * Signature: (Ljkvasir/engine/rendering/RenderBase;Ljava/lang/String;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_jkvasir_world_Mesh3D_setDiffuseTex__Ljkvasir_engine_rendering_RenderBase_2Ljava_lang_String_2
+  (JNIEnv *, jobject, jobject, jstring);
+
 #ifdef __cplusplus
 }
 #endif

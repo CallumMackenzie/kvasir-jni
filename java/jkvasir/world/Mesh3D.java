@@ -25,4 +25,8 @@ public class Mesh3D extends Position3D {
 
 	public native boolean loadFromObj(RenderBase base, String filePath);
 
+	public native boolean setDiffuseTex(RenderBase base, long col);
+
+	public native boolean setDiffuseTex(RenderBase base, String imgPath);
+
 }
