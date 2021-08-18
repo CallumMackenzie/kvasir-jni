@@ -2,6 +2,8 @@
 #include "kvasir-include.h"
 #include "jni-aid.h"
 
+#include <iostream>
+
 using namespace kvasir;
 /*
  * Class:     jkvasir_world_Mesh3D
@@ -114,9 +116,9 @@ JNIEXPORT jobject JNICALL Java_jkvasir_world_Mesh3D_getBuffer(JNIEnv *env, jobje
 		return (jobject)NULL;
 	if (!m->buffer)
 		return (jobject)NULL;
-	jclass cls = env->FindClass("Ljkvasir/engine/rendering/Buffer;");
-	jobject jbuff = env->NewObject(cls, env->GetMethodID(cls, "<init>", "()V"));
-	env->SetLongField(jbuff, env->GetFieldID(cls, "nativePtr", "J"), (jlong)m->buffer);
+	jclass buffer_class = env->FindClass("Ljkvasir/engine/rendering/Buffer;");
+	jobject jbuff = env->NewObject(buffer_class, env->GetMethodID(buffer_class, "<init>", "()V"));
+	env->SetLongField(jbuff, env->GetFieldID(buffer_class, "nativePtr", "J"), (jlong)m->buffer);
 	return jbuff;
 }
 
@@ -136,4 +138,19 @@ JNIEXPORT jobject JNICALL Java_jkvasir_world_Mesh3D_getMaterial(JNIEnv *env, job
 	jobject jbuff = env->NewObject(cls, env->GetMethodID(cls, "<init>", "()V"));
 	env->SetLongField(jbuff, env->GetFieldID(cls, "nativePtr", "J"), (jlong)m->material);
 	return jbuff;
+}
+
+/*
+ * Class:     jkvasir_world_Mesh3D
+ * Method:    makeMaterial
+ * Signature: (Ljkvasir/engine/rendering/RenderBase;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_jkvasir_world_Mesh3D_makeMaterial(JNIEnv *env, jobject jthis, jobject jRenderBase)
+{
+	mesh3d *m = get_native_ptr<mesh3d>(env, jthis);
+	render_base *base = get_native_ptr<render_base>(env, jRenderBase);
+	if (!m || !base)
+		return (jboolean) false;
+	m->material = base->make_material();
+	return (jboolean) true;
 }

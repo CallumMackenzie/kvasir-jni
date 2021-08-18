@@ -25,6 +25,14 @@ JNIEXPORT jboolean JNICALL Java_jkvasir_world_Mesh3D_loadFromObj
 
 /*
  * Class:     jkvasir_world_Mesh3D
+ * Method:    makeMaterial
+ * Signature: (Ljkvasir/engine/rendering/RenderBase;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_jkvasir_world_Mesh3D_makeMaterial
+  (JNIEnv *, jobject, jobject);
+
+/*
+ * Class:     jkvasir_world_Mesh3D
  * Method:    setDiffuseTex
  * Signature: (Ljkvasir/engine/rendering/RenderBase;J)Z
  */

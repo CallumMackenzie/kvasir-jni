@@ -73,7 +73,7 @@ JNIEXPORT jobject JNICALL Java_jkvasir_engine_rendering_Material_getTexture(JNIE
 	if (!mat)
 		return (jobject)NULL;
 	jclass cls = env->FindClass("Ljkvasir/engine/rendering/Texture;");
-	jobject tex = env->NewObject(cls, env->GetMethodID(cls, "Texture", "()V"));
+	jobject tex = env->NewObject(cls, env->GetMethodID(cls, "<init>", "()V"));
 	env->SetLongField(tex, env->GetFieldID(cls, "nativePtr", "J"), (jlong)mat->texs[(size_t)jIndex]);
 	return tex;
 }

@@ -37,6 +37,10 @@ public class FrameManager {
 		return deltaTime;
 	}
 
+	public double deltaD() {
+		return deltaTime;
+	}
+
 	public boolean nextFrameReady() {
 		float timeLastFrameMicrosec = (System.nanoTime() - lastFrame) / 1000.f;
 		float targetDeltaMicrosec = (float) (targetDelta * 1000.0 * 1000.0);

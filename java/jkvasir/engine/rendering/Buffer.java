@@ -2,8 +2,9 @@ package jkvasir.engine.rendering;
 
 public class Buffer {
 	static {
-		System.loadLibrary("jni-kvasir");
+		System.loadLibrary("kvasir-jni");
 	}
+
 	private long nativePtr = 0;
 
 	public Buffer(RenderBase base) throws RenderException {

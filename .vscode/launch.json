@@ -9,8 +9,8 @@
       "name": "Launch Main",
       "request": "launch",
       "mainClass": "Main",
-      "projectName": "kvasir-jni_835b7676"
-      // "vmArgs": "-Djava.library.path=./build, ./build/Debug"
+      "projectName": "kvasir-jni_835b7676",
+      "vmArgs": "-Djava.library.path=[./build;./build/Debug;.;..;]"
     }
   ]
 }
