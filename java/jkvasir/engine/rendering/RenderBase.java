@@ -9,7 +9,7 @@ public class RenderBase {
 	}
 
 	public static enum Type {
-		OPENGL, VULKAN, TERMINAL, DIRECTX
+		OPENGL, VULKAN, TERMINAL, DIRECTX, NONE
 	};
 
 	private long nativePtr = 0;
@@ -17,24 +17,39 @@ public class RenderBase {
 	private native long nativeNew(long t);
 
 	public RenderBase(Type t) {
-		long type = 0;
+		nativePtr = nativeNew(baseTypeConvert(t));
+	}
+
+	public static long baseTypeConvert(Type t) {
 		switch (t) {
 			case OPENGL:
-				type = 0x01;
-				break;
+				return 0x01;
 			case VULKAN:
-				type = 0x02;
-				break;
+				return 0x02;
 			case TERMINAL:
-				type = 0x04;
-				break;
+				return 0x04;
 			case DIRECTX:
-				type = 0x08;
-				break;
+				return 0x08;
 			default:
 				break;
 		}
-		nativePtr = nativeNew(type);
+		return 0x0;
+	}
+
+	public static Type baseTypeConvert(long t) {
+		switch ((int) t) {
+			case 0x01:
+				return Type.OPENGL;
+			case 0x02:
+				return Type.VULKAN;
+			case 0x04:
+				return Type.TERMINAL;
+			case 0x08:
+				return Type.DIRECTX;
+			default:
+				break;
+		}
+		return Type.NONE;
 	}
 
 	public native boolean shouldClose();

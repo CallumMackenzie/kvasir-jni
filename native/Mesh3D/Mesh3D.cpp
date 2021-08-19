@@ -154,3 +154,55 @@ JNIEXPORT jboolean JNICALL Java_jkvasir_world_Mesh3D_makeMaterial(JNIEnv *env, j
 	m->material = base->make_material();
 	return (jboolean) true;
 }
+
+/*
+ * Class:     jkvasir_world_Mesh3D
+ * Method:    getPos
+ * Signature: ()Ljkvasir/math/Vec3;
+ */
+JNIEXPORT jobject JNICALL Java_jkvasir_world_Mesh3D_getPos(JNIEnv *env, jobject jthis)
+{
+	mesh3d *m = get_native_ptr<mesh3d>(env, jthis);
+	if (!m)
+		return (jobject)NULL;
+	return jVec3(env, m->pos);
+}
+
+/*
+ * Class:     jkvasir_world_Mesh3D
+ * Method:    setPos
+ * Signature: (Ljkvasir/math/Vec3;)V
+ */
+JNIEXPORT void JNICALL Java_jkvasir_world_Mesh3D_setPos(JNIEnv *env, jobject jthis, jobject jV3)
+{
+	mesh3d *m = get_native_ptr<mesh3d>(env, jthis);
+	if (!m)
+		return;
+	m->pos = jVec3(env, jV3);
+}
+
+/*
+ * Class:     jkvasir_world_Mesh3D
+ * Method:    getRot
+ * Signature: ()Ljkvasir/math/Quaternion;
+ */
+JNIEXPORT jobject JNICALL Java_jkvasir_world_Mesh3D_getRot(JNIEnv *env, jobject jthis)
+{
+	mesh3d *m = get_native_ptr<mesh3d>(env, jthis);
+	if (!m)
+		return (jobject)NULL;
+	return jQuat(env, m->rot);
+}
+
+/*
+ * Class:     jkvasir_world_Mesh3D
+ * Method:    setRot
+ * Signature: (Ljkvasir/math/Quaternion;)V
+ */
+JNIEXPORT void JNICALL Java_jkvasir_world_Mesh3D_setRot(JNIEnv *env, jobject jthis, jobject jV4)
+{
+	mesh3d *m = get_native_ptr<mesh3d>(env, jthis);
+	if (!m)
+		return;
+	m->rot = jQuat(env, jV4);
+}

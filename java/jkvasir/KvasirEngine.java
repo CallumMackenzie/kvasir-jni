@@ -17,6 +17,7 @@ public abstract class KvasirEngine {
 			throw new RenderException("Render base failed to initialize.");
 		if (!onStart())
 			throw new RenderException("Method onStart returned false.");
+		time.nextFrameReady();
 		while (true) {
 			if (time.nextFrameReady()) {
 				onUpdate();

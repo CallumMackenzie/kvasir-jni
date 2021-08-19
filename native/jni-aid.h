@@ -13,5 +13,10 @@ T *get_native_ptr(JNIEnv *env, jobject obj)
 }
 
 vec3f jVec3(JNIEnv *env, jobject vec);
+jobject jVec3(JNIEnv *env, vec3f vec);
+
+quaternionf jQuat(JNIEnv *env, jobject quat);
+jobject jQuat(JNIEnv *env, quaternionf quat);
+
 
 #endif

@@ -312,12 +312,12 @@ public class Vec3 {
 	}
 
 	public int hashCode() {
-		return ("Vec3(" + x + "," + y + "," + z + ")").hashCode();
+		return toString().hashCode();
 	}
 
 	@Override
 	public String toString() {
-		return "Vec3(" + x + "," + y + ")";
+		return "Vec3(" + x + "," + y + "," + z + ")";
 	}
 
 	public static float dot(Vec3 v1, Vec3 v2) {
