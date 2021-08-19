@@ -271,10 +271,10 @@ JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_Shader_render(JNIEnv *env, 
 
 /*
  * Class:     jkvasir_engine_rendering_Shader
- * Method:    free_shader
+ * Method:    freeShader
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_Shader_free_1shader(JNIEnv *env, jobject jthis)
+JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_Shader_freeShader(JNIEnv *env, jobject jthis)
 {
 	shader_base *shader = get_native_ptr<shader_base>(env, jthis);
 	if (!shader)

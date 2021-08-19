@@ -21,10 +21,18 @@ public class Material {
 
 	public native void bind();
 
+	/**
+	 * Returns the number of valid textures, NOT the number of texture pointers in
+	 * the native texture array.
+	 */
 	public native long getNumTextures();
 
 	public native void setTexture(long index, Texture texture);
 
 	public native Texture getTexture(long index);
+
+	public native void freeTextures();
+
+	public native long getNumTexturePointers();
 
 }

@@ -47,6 +47,22 @@ JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_Material_setTexture
 JNIEXPORT jobject JNICALL Java_jkvasir_engine_rendering_Material_getTexture
   (JNIEnv *, jobject, jlong);
 
+/*
+ * Class:     jkvasir_engine_rendering_Material
+ * Method:    freeTextures
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_Material_freeTextures
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     jkvasir_engine_rendering_Material
+ * Method:    getNumTexturePointers
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_jkvasir_engine_rendering_Material_getNumTexturePointers
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif

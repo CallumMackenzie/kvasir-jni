@@ -70,10 +70,37 @@ JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_Material_setTexture(JNIEnv 
 JNIEXPORT jobject JNICALL Java_jkvasir_engine_rendering_Material_getTexture(JNIEnv *env, jobject jthis, jlong jIndex)
 {
 	material_base *mat = get_native_ptr<material_base>(env, jthis);
-	if (!mat)
+	if (!mat || (long)jIndex >= mat->texs.size() || jIndex < 0)
 		return (jobject)NULL;
 	jclass cls = env->FindClass("Ljkvasir/engine/rendering/Texture;");
 	jobject tex = env->NewObject(cls, env->GetMethodID(cls, "<init>", "()V"));
 	env->SetLongField(tex, env->GetFieldID(cls, "nativePtr", "J"), (jlong)mat->texs[(size_t)jIndex]);
 	return tex;
+}
+
+/*
+ * Class:     jkvasir_engine_rendering_Material
+ * Method:    freeTextures
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_Material_freeTextures(JNIEnv *env, jobject jthis)
+{
+	material_base *mat = get_native_ptr<material_base>(env, jthis);
+	if (!mat)
+		return;
+	for (size_t i = 0; i < mat->texs.size(); ++i)
+		if (mat->texs[i])
+			mat->texs[i]->free_texture();
+}
+/*
+ * Class:     jkvasir_engine_rendering_Material
+ * Method:    getNumTexturePointers
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_jkvasir_engine_rendering_Material_getNumTexturePointers(JNIEnv *env, jobject jthis)
+{
+	material_base *mat = get_native_ptr<material_base>(env, jthis);
+	if (!mat)
+		return (jlong)0;
+	return (jlong)mat->texs.size();
 }

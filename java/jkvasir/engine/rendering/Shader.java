@@ -87,7 +87,7 @@ public class Shader {
 
 	public native void render(int nTris);
 
-	public native void free_shader();
+	public native void freeShader();
 
 	public native void use();
 

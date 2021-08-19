@@ -37,7 +37,7 @@ class Main extends KvasirEngine {
 		base.setClearColour(0xafbfcf);
 		base.depthBufferActive(true);
 		time.setFPS(40);
-		fixedTime.setFPS(2);
+		fixedTime.setFPS(10);
 
 		cam.getPos().setZ(-4);
 		shader = Shader.default3D(base);
@@ -74,5 +74,7 @@ class Main extends KvasirEngine {
 
 	protected void onClose() throws KvasirException {
 		mesh.getBuffer().freeBuffer();
+		mesh.getMaterial().freeTextures();
+		shader.freeShader();
 	}
 }

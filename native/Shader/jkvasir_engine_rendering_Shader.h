@@ -153,10 +153,10 @@ JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_Shader_render
 
 /*
  * Class:     jkvasir_engine_rendering_Shader
- * Method:    free_shader
+ * Method:    freeShader
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_Shader_free_1shader
+JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_Shader_freeShader
   (JNIEnv *, jobject);
 
 /*
