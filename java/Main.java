@@ -29,6 +29,7 @@ class Main extends KvasirEngine {
 	protected boolean onStart() throws RenderException {
 		base.setClearColour(0xafbfcf);
 		base.depthBufferActive(true);
+		time.setFPS(300);
 
 		cam.getPos().setZ(-4);
 		shader = Shader.default3D(base);
@@ -43,7 +44,6 @@ class Main extends KvasirEngine {
 		euler.addEquals(new Vec3(1, 1, 1).mul(time.delta()));
 		mesh.setRot(Quaternion.fromEuler(euler));
 		mesh.setPos(mesh.getPos().add(new Vec3(0.5, 0.5, 0.5).mul(time.delta())));
-		System.out.println("Mesh pos: " + mesh.getPos().toString() + "\nMesh rot: " + mesh.getRot().toString());
 		cam.aspect = (float) base.getAspect();
 		cam.debugControls(base, time.delta(), 1.4f, 3.f);
 
