@@ -15,11 +15,11 @@ class Main extends KvasirEngine {
 	}
 
 	public Main() {
-		super(RenderBase.Type.OPENGL);
+		super(RenderBase.Type.TERMINAL);
 	}
 
 	public void start() throws KvasirException {
-		if (base.type() == RenderBase.Type.TERMINAL)
+		if (base.type() == RenderBase.Type.OPENGL)
 			start("Main", 64, 32);
 		else
 			start("Main", 720, 480);

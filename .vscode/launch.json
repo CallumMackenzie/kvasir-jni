@@ -10,8 +10,7 @@
       "request": "launch",
       "mainClass": "Main",
       "projectName": "kvasir-jni_5cca3616",
-      "vmArgs": "-Djava.library.path='./build'",
-      // "console": "externalTerminal"
+      "vmArgs": "-Djava.library.path='./build'"
     },
     {
       "type": "java",
