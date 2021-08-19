@@ -1,6 +1,5 @@
 package jkvasir.world;
 
-import jkvasir.math.Quaternion;
 import jkvasir.math.Vec3;
 import jkvasir.math.Vec2;
 import jkvasir.engine.rendering.RenderBase;
@@ -28,8 +27,6 @@ public class Mesh3D extends Position3D {
 
 	public Mesh3D() {
 		nativePtr = nativeNew();
-		setPos(new Vec3(0, 0, 0));
-		setRot(Quaternion.fromEuler(new Vec3(0, 0, 0)));
 	}
 
 	public native boolean loadFromObj(RenderBase base, String filePath);
@@ -47,13 +44,5 @@ public class Mesh3D extends Position3D {
 	public native Buffer getBuffer();
 
 	public native Material getMaterial();
-
-	public native Vec3 getPos();
-
-	public native void setPos(Vec3 pos);
-
-	public native Quaternion getRot();
-
-	public native void setRot(Quaternion rot);
 
 }

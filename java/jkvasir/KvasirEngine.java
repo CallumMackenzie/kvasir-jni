@@ -6,7 +6,8 @@ import jkvasir.engine.rendering.RenderException;
 
 public abstract class KvasirEngine {
 	public FrameManager time = new FrameManager(60);
-	public RenderBase base;
+	public FrameManager fixedTime = new FrameManager(10);
+	public RenderBase base = null;
 
 	public KvasirEngine(RenderBase.Type type) {
 		base = new RenderBase(type);
@@ -18,13 +19,17 @@ public abstract class KvasirEngine {
 		if (!onStart())
 			throw new RenderException("Method onStart returned false.");
 		time.nextFrameReady();
+		fixedTime.nextFrameReady();
 		while (true) {
 			if (time.nextFrameReady()) {
+				base.pollEvents();
 				onUpdate();
+			}
+			if (fixedTime.nextFrameReady()) {
+				onFixedUpdate();
 				if (base.shouldClose())
 					break;
 			}
-			base.pollEvents();
 		}
 		onClose();
 	}
@@ -33,7 +38,9 @@ public abstract class KvasirEngine {
 
 	protected abstract boolean onStart() throws RenderException;
 
-	protected abstract void onUpdate();
+	protected abstract void onUpdate() throws RenderException;
 
-	protected abstract void onClose();
+	protected abstract void onClose() throws RenderException;
+
+	protected abstract void onFixedUpdate() throws RenderException;
 }

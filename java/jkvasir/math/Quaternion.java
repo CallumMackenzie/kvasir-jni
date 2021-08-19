@@ -132,6 +132,11 @@ public class Quaternion extends Vec4 {
 				(float) Math.cos((double) (angle * .5f)));
 	}
 
+	public static Quaternion angleAxis(float angle, Vec3 axis)
+	{
+		return axisAngle(axis, angle);
+	}
+
 	public static Quaternion fromEuler(Vec3 eu) {
 		Quaternion ret = new Quaternion();
 		ret.setEuler(eu);

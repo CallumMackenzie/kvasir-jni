@@ -122,7 +122,7 @@ JNIEXPORT jboolean JNICALL Java_jkvasir_engine_rendering_RenderBase_isFullscreen
 	render_base *base = get_native_ptr<render_base>(env, ob);
 	if (base)
 		return (jboolean)base->is_fullscreen();
-	return (jboolean)false;
+	return (jboolean) false;
 }
 
 /*
@@ -244,6 +244,7 @@ JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_RenderBase_renderMesh3D(JNI
 		return;
 	shader_base *shader = get_native_ptr<shader_base>(env, jshader);
 	jclass cam_class = env->GetObjectClass(jcam);
+	jclass mesh_class = env->GetObjectClass(jmesh);
 	jobject jpos = env->GetObjectField(jcam, env->GetFieldID(cam_class, "pos", "Ljkvasir/math/Vec3;"));
 	jobject jrot = env->GetObjectField(jcam, env->GetFieldID(cam_class, "rot", "Ljkvasir/math/Vec3;"));
 
@@ -254,6 +255,13 @@ JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_RenderBase_renderMesh3D(JNI
 	camera.fov = env->GetFloatField(jcam, env->GetFieldID(cam_class, "fov", "F"));
 	camera.pos = jVec3(env, jpos);
 	camera.rot = jVec3(env, jrot);
+
+	jpos = env->GetObjectField(jmesh, env->GetFieldID(mesh_class, "pos", "Ljkvasir/math/Vec3;"));
+	jrot = env->GetObjectField(jmesh, env->GetFieldID(mesh_class, "rot", "Ljkvasir/math/Quaternion;"));
+	jobject jscale = env->GetObjectField(jmesh, env->GetFieldID(mesh_class, "scale", "Ljkvasir/math/Vec3;"));
+	mesh->pos = jVec3(env, jpos);
+	mesh->rot = jQuat(env, jrot);
+	mesh->scale = jVec3(env, jscale);
 	base->render_mesh3d(camera, *mesh, shader);
 }
 

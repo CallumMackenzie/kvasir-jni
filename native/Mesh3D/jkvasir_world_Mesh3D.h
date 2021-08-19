@@ -79,37 +79,7 @@ JNIEXPORT jobject JNICALL Java_jkvasir_world_Mesh3D_getBuffer
 JNIEXPORT jobject JNICALL Java_jkvasir_world_Mesh3D_getMaterial
   (JNIEnv *, jobject);
 
-/*
- * Class:     jkvasir_world_Mesh3D
- * Method:    getPos
- * Signature: ()Ljkvasir/math/Vec3;
- */
-JNIEXPORT jobject JNICALL Java_jkvasir_world_Mesh3D_getPos
-  (JNIEnv *, jobject);
 
-/*
- * Class:     jkvasir_world_Mesh3D
- * Method:    setPos
- * Signature: (Ljkvasir/math/Vec3;)V
- */
-JNIEXPORT void JNICALL Java_jkvasir_world_Mesh3D_setPos
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     jkvasir_world_Mesh3D
- * Method:    getRot
- * Signature: ()Ljkvasir/math/Vec4;
- */
-JNIEXPORT jobject JNICALL Java_jkvasir_world_Mesh3D_getRot
-  (JNIEnv *, jobject);
-
-/*
- * Class:     jkvasir_world_Mesh3D
- * Method:    setRot
- * Signature: (Ljkvasir/math/Vec4;)V
- */
-JNIEXPORT void JNICALL Java_jkvasir_world_Mesh3D_setRot
-  (JNIEnv *, jobject, jobject);
 
 #ifdef __cplusplus
 }

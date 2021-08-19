@@ -14,6 +14,16 @@ public class Texture {
 			throw new RenderException("Native texture_base pointer is NULL.");
 	}
 
+	public Texture(RenderBase base, String texPath) throws RenderException {
+		this(base);
+		setTexture(loadImage(texPath));
+	}
+
+	public Texture(RenderBase base, long texCol) throws RenderException {
+		this(base);
+		setTexture(colourImage(texCol));
+	}
+
 	private Texture() {
 	}
 

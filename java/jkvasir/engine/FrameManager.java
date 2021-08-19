@@ -5,6 +5,7 @@ public class FrameManager {
 	private long lastFrame = 0; // Nanoseconds
 	private double deltaTime = 0; // Seconds
 	private double targetDelta = 1.0 / 60.0; // Seconds
+	private boolean capped = true;
 
 	public FrameManager() {
 	}
@@ -15,6 +16,10 @@ public class FrameManager {
 
 	public FrameManager(double FPS) {
 		setFPS(FPS);
+	}
+
+	public void setCapped(boolean cap) {
+		capped = cap;
 	}
 
 	public void setFPS(double FPS) {
@@ -43,6 +48,11 @@ public class FrameManager {
 
 	public boolean nextFrameReady() {
 		float timeLastFrameMicrosec = (System.nanoTime() - lastFrame) / 1000.f;
+		if (!capped) {
+			deltaTime = (double) timeLastFrameMicrosec / (1000.0 * 1000.0);
+			lastFrame = System.nanoTime();
+			return true;
+		}
 		float targetDeltaMicrosec = (float) (targetDelta * 1000.0 * 1000.0);
 		if (timeLastFrameMicrosec >= targetDeltaMicrosec) {
 			deltaTime = (double) timeLastFrameMicrosec / (1000.0 * 1000.0);
