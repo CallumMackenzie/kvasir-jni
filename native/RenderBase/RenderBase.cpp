@@ -59,8 +59,9 @@ JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_RenderBase_clear(JNIEnv *en
 JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_RenderBase_swapBuffers(JNIEnv *env, jobject ob)
 {
 	render_base *base = get_native_ptr<render_base>(env, ob);
-	if (base)
-		base->swap_buffers();
+	if (!base)
+		return;
+	base->swap_buffers();
 }
 
 /*

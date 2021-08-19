@@ -34,6 +34,13 @@ public class Camera3D {
 		return new Vec4(0, 0, 1).mulMat4(Mat4.rotation(rot.xyz1())).xyz();
 	}
 
+	public void setProperAspect(RenderBase base) {
+		if (base.type() == RenderBase.Type.TERMINAL)
+			aspect = (float) base.getAspect() * 2.f;
+		else
+			aspect = (float) base.getAspect();
+	}
+
 	public void debugControls(RenderBase base, float delta, float camSpeed, float moveSpeed) {
 		Vec3 cLV = lookVector();
 		float cameraMoveSpeed = camSpeed;
@@ -50,9 +57,9 @@ public class Camera3D {
 			forward = forward.sub(Vec3.cross(cLV, up));
 		if (base.keyPressed(0)) // a
 			forward = forward.add(Vec3.cross(cLV, up));
-		if (base.keyPressed(4) || base.keyPressed(57)) // E or space
+		if (base.keyPressed(16) || base.keyPressed(57)) // Q or space
 			forward.setY(forward.getY() + 1.f);
-		if (base.keyPressed(16)) // Q
+		if (base.keyPressed(4)) // E
 			forward.setY(forward.getY() - 1.f);
 
 		if (base.keyPressed(71)) // Arrow left

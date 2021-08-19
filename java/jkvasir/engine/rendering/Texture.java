@@ -1,5 +1,7 @@
 package jkvasir.engine.rendering;
 
+import jkvasir.engine.KvasirException;
+
 public class Texture {
 	static {
 		System.loadLibrary("kvasir-jni");
@@ -8,18 +10,18 @@ public class Texture {
 
 	private native long nativeNew(RenderBase base);
 
-	public Texture(RenderBase base) throws RenderException {
+	public Texture(RenderBase base) throws KvasirException {
 		nativePtr = nativeNew(base);
 		if (nativePtr == 0)
-			throw new RenderException("Native texture_base pointer is NULL.");
+			throw new KvasirException("Native texture_base pointer is NULL.");
 	}
 
-	public Texture(RenderBase base, String texPath) throws RenderException {
+	public Texture(RenderBase base, String texPath) throws KvasirException {
 		this(base);
 		setTexture(loadImage(texPath));
 	}
 
-	public Texture(RenderBase base, long texCol) throws RenderException {
+	public Texture(RenderBase base, long texCol) throws KvasirException {
 		this(base);
 		setTexture(colourImage(texCol));
 	}

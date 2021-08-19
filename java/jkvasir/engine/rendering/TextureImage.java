@@ -1,6 +1,7 @@
 package jkvasir.engine.rendering;
 
 import jkvasir.math.Vec4;
+import jkvasir.engine.KvasirException;
 
 public class TextureImage {
 	static {
@@ -10,10 +11,10 @@ public class TextureImage {
 
 	private native long nativeNew();
 
-	public TextureImage() throws RenderException {
+	public TextureImage() throws KvasirException {
 		nativePtr = nativeNew();
 		if (nativePtr == 0)
-			throw new RenderException("Native texture_image pointer is NULL.");
+			throw new KvasirException("Native texture_image pointer is NULL.");
 	}
 
 	public native long getWidth();

@@ -1,5 +1,7 @@
 package jkvasir.engine.rendering;
 
+import jkvasir.engine.KvasirException;
+
 public class Material {
 	static {
 		System.loadLibrary("kvasir-jni");
@@ -8,10 +10,10 @@ public class Material {
 
 	private native long nativeNew(RenderBase base);
 
-	public Material(RenderBase base) throws RenderException {
+	public Material(RenderBase base) throws KvasirException {
 		nativePtr = nativeNew(base);
 		if (nativePtr == 0)
-			throw new RenderException("Native material_base pointer is NULL.");
+			throw new KvasirException("Native material_base pointer is NULL.");
 	}
 
 	private Material() {

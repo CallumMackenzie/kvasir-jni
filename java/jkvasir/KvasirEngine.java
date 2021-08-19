@@ -2,7 +2,7 @@ package jkvasir;
 
 import jkvasir.engine.FrameManager;
 import jkvasir.engine.rendering.RenderBase;
-import jkvasir.engine.rendering.RenderException;
+import jkvasir.engine.KvasirException;
 
 public abstract class KvasirEngine {
 	public FrameManager time = new FrameManager(60);
@@ -13,34 +13,48 @@ public abstract class KvasirEngine {
 		base = new RenderBase(type);
 	}
 
-	protected void start(String name, int width, int height) throws RenderException {
+	protected void start(String name, int width, int height) throws KvasirException {
 		if (!base.init(name, width, height))
-			throw new RenderException("Render base failed to initialize.");
+			throw new KvasirException("Render base failed to initialize.");
 		if (!onStart())
-			throw new RenderException("Method onStart returned false.");
+			throw new KvasirException("Method onStart returned false.");
 		time.nextFrameReady();
 		fixedTime.nextFrameReady();
+
 		while (true) {
 			if (time.nextFrameReady()) {
 				base.pollEvents();
 				onUpdate();
-			}
-			if (fixedTime.nextFrameReady()) {
-				onFixedUpdate();
 				if (base.shouldClose())
 					break;
 			}
+			if (fixedTime.nextFrameReady())
+				onFixedUpdate();
+			perFrame();
 		}
 		onClose();
 	}
 
-	public abstract void start() throws RenderException;
+	/**
+	 * Override this to add additional update loops.
+	 */
+	protected void perFrame() throws KvasirException {
+	}
 
-	protected abstract boolean onStart() throws RenderException;
+	public void destroyBase() {
+		if (base == null)
+			return;
+		base.destroy();
+		base = null;
+	}
 
-	protected abstract void onUpdate() throws RenderException;
+	public abstract void start() throws KvasirException;
 
-	protected abstract void onClose() throws RenderException;
+	protected abstract boolean onStart() throws KvasirException;
 
-	protected abstract void onFixedUpdate() throws RenderException;
+	protected abstract void onUpdate() throws KvasirException;
+
+	protected abstract void onClose() throws KvasirException;
+
+	protected abstract void onFixedUpdate() throws KvasirException;
 }

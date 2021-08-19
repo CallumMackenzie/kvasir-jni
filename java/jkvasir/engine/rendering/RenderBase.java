@@ -52,12 +52,20 @@ public class RenderBase {
 		return Type.NONE;
 	}
 
+	public Type type() {
+		return baseTypeConvert(getType());
+	}
+
 	public native boolean shouldClose();
 
 	public native void setClearColour(long col);
 
 	public native void clear();
 
+	/**
+	 * Swaps the render and display buffers, showing most recently drawn content.
+	 * May seem slow on some systems due to v-sync.
+	 */
 	public native void swapBuffers();
 
 	public native void pollEvents();

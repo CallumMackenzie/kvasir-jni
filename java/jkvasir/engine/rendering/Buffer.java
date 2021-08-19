@@ -1,5 +1,7 @@
 package jkvasir.engine.rendering;
 
+import jkvasir.engine.KvasirException;
+
 public class Buffer {
 	static {
 		System.loadLibrary("kvasir-jni");
@@ -7,10 +9,10 @@ public class Buffer {
 
 	private long nativePtr = 0;
 
-	public Buffer(RenderBase base) throws RenderException {
+	public Buffer(RenderBase base) throws KvasirException {
 		nativePtr = nativeNew(base);
 		if (nativePtr == 0)
-			throw new RenderException("Native buffer_base pointer is NULL.");
+			throw new KvasirException("Native buffer_base pointer is NULL.");
 	}
 
 	private Buffer() {
