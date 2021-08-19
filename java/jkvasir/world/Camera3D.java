@@ -23,7 +23,7 @@ public class Camera3D {
 	}
 
 	public Mat4 view() {
-		return Mat4.pointedAt(pos.xyz1(), (new Vec4(0, 0, 1).mulMat4(Mat4.rotation(rot.xyz1())).xyz().add(pos)).xyz1());
+		return Mat4.pointedAt(pos, new Vec4(0, 0, 1).mulMat4(Mat4.rotation(rot)).xyz().add(pos));
 	}
 
 	public Mat4 perspective() {
@@ -31,7 +31,7 @@ public class Camera3D {
 	}
 
 	public Vec3 lookVector() {
-		return new Vec4(0, 0, 1).mulMat4(Mat4.rotation(rot.xyz1())).xyz();
+		return new Vec4(0, 0, 1).mulMat4(Mat4.rotation(rot)).xyz();
 	}
 
 	public void setProperAspect(RenderBase base) {

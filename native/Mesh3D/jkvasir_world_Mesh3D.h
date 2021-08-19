@@ -79,7 +79,13 @@ JNIEXPORT jobject JNICALL Java_jkvasir_world_Mesh3D_getBuffer
 JNIEXPORT jobject JNICALL Java_jkvasir_world_Mesh3D_getMaterial
   (JNIEnv *, jobject);
 
-
+/*
+ * Class:     jkvasir_world_Mesh3D
+ * Method:    getNumTris
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_jkvasir_world_Mesh3D_getNumTris
+  (JNIEnv *, jobject);
 
 #ifdef __cplusplus
 }

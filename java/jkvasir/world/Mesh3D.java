@@ -2,6 +2,7 @@ package jkvasir.world;
 
 import jkvasir.math.Vec3;
 import jkvasir.math.Vec2;
+import jkvasir.math.Mat4;
 import jkvasir.engine.rendering.RenderBase;
 import jkvasir.engine.rendering.Buffer;
 import jkvasir.engine.rendering.Material;
@@ -29,6 +30,13 @@ public class Mesh3D extends Position3D {
 		nativePtr = nativeNew();
 	}
 
+	public Mat4 modelMatrix() {
+		Mat4 s = Mat4.scale(scale);
+		Mat4 r = Mat4.rotation(rot);
+		Mat4 t = Mat4.translation(pos);
+		return s.mul(r, t);
+	}
+
 	public native boolean loadFromObj(RenderBase base, String filePath);
 
 	public native boolean makeMaterial(RenderBase base);
@@ -44,5 +52,7 @@ public class Mesh3D extends Position3D {
 	public native Buffer getBuffer();
 
 	public native Material getMaterial();
+
+	public native int getNumTris();
 
 }

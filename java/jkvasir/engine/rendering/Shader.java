@@ -1,6 +1,11 @@
 package jkvasir.engine.rendering;
 
 import jkvasir.engine.KvasirException;
+import jkvasir.math.Mat2;
+import jkvasir.math.Mat4;
+import jkvasir.math.Vec2;
+import jkvasir.math.Vec3;
+import jkvasir.math.Vec4;
 
 public class Shader {
 	static {
@@ -50,37 +55,59 @@ public class Shader {
 
 	public native boolean compile(String[] srcs, long nSrcs);
 
-	// public native void uBool1(String name, boolean a);
+	public native void uBool1(String name, boolean a);
 
-	// public native void uBool2(String name, boolean a, boolean b);
+	public native void uBool2(String name, boolean a, boolean b);
 
-	// public native void uBool3(String name, boolean a, boolean b, boolean c);
+	public native void uBool3(String name, boolean a, boolean b, boolean c);
 
-	// public native void uBool4(String name, boolean a, boolean b, boolean c, boolean d);
+	public native void uBool4(String name, boolean a, boolean b, boolean c, boolean d);
 
-	// public native void uInt1(String name, int a);
+	public native void uInt1(String name, int a);
 
-	// public native void uInt2(String name, int a, int b);
+	public native void uInt2(String name, int a, int b);
 
-	// public native void uInt3(String name, int a, int b, int c);
+	public native void uInt3(String name, int a, int b, int c);
 
-	// public native void uInt4(String name, int a, int b, int c, int d);
+	public native void uInt4(String name, int a, int b, int c, int d);
 
-	// public native void uFloat1(String name, float a);
+	public native void uFloat1(String name, float a);
 
-	// public native void uFloat2(String name, float a, float b);
+	public native void uFloat2(String name, float a, float b);
 
-	// public native void uFloat3(String name, float a, float b, float c);
+	public native void uFloat3(String name, float a, float b, float c);
 
-	// public native void uFloat4(String name, float a, float b, float c, float d);
+	public native void uFloat4(String name, float a, float b, float c, float d);
 
-	// public native void uMat2f(String name, float[][] m);
+	public native void uMat2f(String name, float[][] m);
 
-	// public native void uMat3f(String name, float[][] m);
+	public native void uMat3f(String name, float[][] m);
 
-	// public native void uMat4f(String name, float[][] m);
+	public native void uMat4f(String name, float[][] m);
 
-	// public native void render(int nVerts);
+	public native void render(int nTris);
 
-	// public native void free_shader();
+	public native void free_shader();
+
+	public native void use();
+
+	public void uMat2(String n, Mat2 mat) {
+		uMat2f(n, mat.getM());
+	}
+
+	public void uMat4(String n, Mat4 mat) {
+		uMat4f(n, mat.getM());
+	}
+
+	public void uVec2(String n, Vec2 v) {
+		uFloat2(n, v.x(), v.y());
+	}
+
+	public void uVec3(String n, Vec3 v) {
+		uFloat3(n, v.x(), v.y(), v.z());
+	}
+
+	public void uVec4(String n, Vec4 v) {
+		uFloat4(n, v.x(), v.y(), v.z(), v.w());
+	}
 }

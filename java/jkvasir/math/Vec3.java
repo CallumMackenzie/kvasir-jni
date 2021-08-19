@@ -336,8 +336,36 @@ public class Vec3 {
 		return z;
 	}
 
+	public float r() {
+		return x;
+	}
+
+	public float g() {
+		return y;
+	}
+
+	public float b() {
+		return z;
+	}
+
+	public void setR(float r) {
+		x = r;
+	}
+
+	public void setG(float g) {
+		y = g;
+	}
+
+	public void setB(float b) {
+		z = b;
+	}
+
 	public Vec4 xyz1() {
 		return new Vec4(x, y, z, 1.f);
+	}
+
+	public Vec2 xy() {
+		return new Vec2(x, y);
 	}
 
 	public static Vec3 cross(Vec3 v1, Vec3 v2) {

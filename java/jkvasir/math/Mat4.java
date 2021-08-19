@@ -64,6 +64,14 @@ public class Mat4 {
 		this.m = m;
 	}
 
+	public Mat4 transpose() {
+		Mat4 ret = new Mat4();
+		for (int i = 0; i < 4; ++i)
+			for (int j = 0; j < 4; ++j)
+				ret.m[i][j] = m[j][i];
+		return ret;
+	}
+
 	@Override
 	public String toString() {
 		String ret = "";
@@ -144,8 +152,8 @@ public class Mat4 {
 	 * @param target the target
 	 * @return a matrix associated with the direction of a point
 	 */
-	public static Mat4 pointedAt(Vec4 pos, Vec4 target) {
-		return pointedAt(pos, target, new Vec4(0, 1.f, 0));
+	public static Mat4 pointedAt(Vec3 pos, Vec3 target) {
+		return pointedAt(pos, target, new Vec3(0, 1.f, 0));
 	}
 
 	/**
@@ -155,15 +163,15 @@ public class Mat4 {
 	 * @param up     the direction to treat as up
 	 * @return a matrix associated with the direction of a point
 	 */
-	public static Mat4 pointedAt(Vec4 pos, Vec4 target, Vec4 up) {
-		Vec4 newForward = target.sub(pos);
+	public static Mat4 pointedAt(Vec3 pos, Vec3 target, Vec3 up) {
+		Vec3 newForward = target.sub(pos);
 		newForward.normalize();
 
-		Vec4 a = newForward.mulFloat(Vec4.dot(up, newForward));
-		Vec4 newUp = up.sub(a);
+		Vec3 a = newForward.mulFloat(Vec3.dot(up, newForward));
+		Vec3 newUp = up.sub(a);
 		newUp.normalize();
 
-		Vec4 newRight = Vec4.cross(newUp, newForward);
+		Vec3 newRight = Vec3.cross(newUp, newForward);
 		Mat4 matrix = new Mat4();
 		matrix.m[0][0] = newRight.getX();
 		matrix.m[0][1] = newRight.getY();
@@ -224,10 +232,10 @@ public class Mat4 {
 	/**
 	 * Constructs a scale matrix
 	 * 
-	 * @param v a Vec4 representing a scale
+	 * @param v a Vec3 representing a scale
 	 * @return a 3D scale matrix
 	 */
-	public static Mat4 scale(Vec4 v) {
+	public static Mat4 scale(Vec3 v) {
 		return scale(v.getX(), v.getY(), v.getZ());
 	}
 
@@ -275,10 +283,10 @@ public class Mat4 {
 	/**
 	 * Constructs a translation matrix
 	 * 
-	 * @param v a Vec4 repersenting a transformation
+	 * @param v a Vec3 repersenting a transformation
 	 * @return a 3D translation matrix
 	 */
-	public static Mat4 translation(Vec4 v) {
+	public static Mat4 translation(Vec3 v) {
 		return translation(v.getX(), v.getY(), v.getZ());
 	}
 
@@ -343,11 +351,23 @@ public class Mat4 {
 
 	/**
 	 * 
-	 * @param rotation a Vec4 repersenting a rotation
+	 * @param rotation a Vec3 repersenting a rotation
 	 * @return a full 3D rotation matrix
 	 */
-	public static Mat4 rotation(Vec4 rotation) {
+	public static Mat4 rotation(Vec3 rotation) {
 		return rotation(rotation.getX(), rotation.getY(), rotation.getZ());
+	}
+
+	public static Mat4 rotation(Quaternion q) {
+		q.normalize();
+		return new Mat4(new float[][] {
+				{ 1.f - 2.f * q.y() * q.y() - 2.f * q.z() * q.z(), 2.f * q.x() * q.y() - 2.f * q.z() * q.w(),
+						2.f * q.x() * q.z() + 2.f * q.y() * q.w(), 0.f },
+				{ 2.f * q.x() * q.y() + 2.f * q.z() * q.w(), 1.f - 2.f * q.x() * q.x() - 2.f * q.z() * q.z(),
+						2.f * q.y() * q.z() - 2.f * q.x() * q.w(), 0.f },
+				{ 2.f * q.x() * q.z() - 2.f * q.y() * q.w(), 2.f * q.y() * q.z() + 2.f * q.x() * q.w(),
+						1.f - 2.f * q.x() * q.x() - 2.f * q.y() * q.y(), 0.f },
+				{ 0, 0, 0, 1.f } });
 	}
 
 	/**
@@ -371,10 +391,10 @@ public class Mat4 {
 	 * @param xRad x rotation in radians
 	 * @param yRad y rotation in radians
 	 * @param zRad z rotation in radians
-	 * @param pt   a Vec4 repersenting the relative point to rotate around
+	 * @param pt   a Vec3 repersenting the relative point to rotate around
 	 * @return a 3D rotation matrix around a point
 	 */
-	public static Mat4 rotationOnPoint(float xRad, float yRad, float zRad, Vec4 pt) {
+	public static Mat4 rotationOnPoint(float xRad, float yRad, float zRad, Vec3 pt) {
 		Mat4 mat = translation(pt).mul(rotation(xRad, yRad, zRad),
 				Mat4.translation(-pt.getX(), -pt.getY(), -pt.getZ()));
 		return mat;
@@ -382,11 +402,11 @@ public class Mat4 {
 
 	/**
 	 * 
-	 * @param rotation a Vec4 repersenting a rotation
-	 * @param point    a Vec4 repersenting the relative point to rotate around
+	 * @param rotation a Vec3 repersenting a rotation
+	 * @param point    a Vec3 repersenting the relative point to rotate around
 	 * @return a 3D rotation matrix around a point
 	 */
-	public static Mat4 rotationOnPoint(Vec4 rotation, Vec4 point) {
+	public static Mat4 rotationOnPoint(Vec3 rotation, Vec3 point) {
 		return rotationOnPoint(rotation.getX(), rotation.getY(), rotation.getZ(), point);
 	}
 }

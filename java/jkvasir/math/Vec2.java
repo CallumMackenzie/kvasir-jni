@@ -272,13 +272,34 @@ public class Vec2 {
 	 * @return the product
 	 */
 	public static Vec2 mulMat2(Vec2 vec, Mat2 mat) {
-		// [ x y ] [ a b ] = [ (ax + bx) (cy + dy) ]
-		// ------- [ c d ]
-
 		Vec2 v = new Vec2(vec);
 		v.x = (v.x * mat.getM()[0][0]) + (v.x * mat.getM()[0][1]);
 		v.y = (v.y * mat.getM()[1][0]) + (v.y * mat.getM()[1][1]);
 		return v;
+	}
+
+	public float x() {
+		return x;
+	}
+
+	public float y() {
+		return y;
+	}
+
+	public float u() {
+		return x;
+	}
+
+	public float v() {
+		return y;
+	}
+
+	public void setU(float u) {
+		x = u;
+	}
+
+	public void setV(float v) {
+		y = v;
 	}
 
 	public static float dot(Vec2 v1, Vec2 v2) {

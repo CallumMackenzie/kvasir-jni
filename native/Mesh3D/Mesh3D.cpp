@@ -154,3 +154,16 @@ JNIEXPORT jboolean JNICALL Java_jkvasir_world_Mesh3D_makeMaterial(JNIEnv *env, j
 	m->material = base->make_material();
 	return (jboolean) true;
 }
+
+/*
+ * Class:     jkvasir_world_Mesh3D
+ * Method:    getNumTris
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_jkvasir_world_Mesh3D_getNumTris(JNIEnv *env, jobject jthis)
+{
+	mesh3d *m = get_native_ptr<mesh3d>(env, jthis);
+	if (!m)
+		return (jint)0;
+	return (jint)m->n_tris;
+}

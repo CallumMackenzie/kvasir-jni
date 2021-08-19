@@ -119,6 +119,7 @@ public class Vec4 {
 			vec.x += v.x;
 			vec.y += v.y;
 			vec.z += v.z;
+			vec.w += v.w;
 		}
 		return vec;
 	}
@@ -134,6 +135,7 @@ public class Vec4 {
 			vec.x -= v.x;
 			vec.y -= v.y;
 			vec.z -= v.z;
+			vec.w -= v.w;
 		}
 		return vec;
 	}
@@ -149,6 +151,7 @@ public class Vec4 {
 			vec.x *= v.x;
 			vec.y *= v.y;
 			vec.z *= v.z;
+			vec.w *= v.w;
 		}
 		return vec;
 	}
@@ -164,6 +167,7 @@ public class Vec4 {
 			vec.x /= v.x;
 			vec.y /= v.y;
 			vec.z /= v.z;
+			vec.w /= v.w;
 		}
 		return vec;
 	}
@@ -179,6 +183,7 @@ public class Vec4 {
 			vec.x *= n;
 			vec.y *= n;
 			vec.z *= n;
+			vec.w *= n;
 		}
 		return vec;
 	}
@@ -198,6 +203,7 @@ public class Vec4 {
 			vec.x += n;
 			vec.y += n;
 			vec.z += n;
+			vec.w += n;
 		}
 		return vec;
 	}
@@ -217,6 +223,7 @@ public class Vec4 {
 			vec.x -= n;
 			vec.y -= n;
 			vec.z -= n;
+			vec.w -= n;
 		}
 		return vec;
 	}
@@ -236,6 +243,7 @@ public class Vec4 {
 			vec.x /= n;
 			vec.y /= n;
 			vec.z /= n;
+			vec.w /= n;
 		}
 		return vec;
 	}
@@ -303,6 +311,7 @@ public class Vec4 {
 			vec.x /= l;
 			vec.y /= l;
 			vec.z /= l;
+			vec.w /= l;
 		}
 		return vec;
 	}
@@ -317,6 +326,7 @@ public class Vec4 {
 			this.x /= l;
 			this.y /= l;
 			this.z /= l;
+			this.w /= l;
 		}
 	}
 
@@ -346,7 +356,7 @@ public class Vec4 {
 	}
 
 	public int hashCode() {
-		return ("Vec4(" + x + "," + y + "," + z + "," + w + ")").hashCode();
+		return toString().hashCode();
 	}
 
 	@Override
@@ -361,25 +371,11 @@ public class Vec4 {
 	 * @return the dot product
 	 */
 	public static float dot(Vec4 v1, Vec4 v2) {
-		return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
-	}
-
-	/**
-	 * 
-	 * @param v1 the first Vec4
-	 * @param v2 the second Vec4
-	 * @return the cross product
-	 */
-	public static Vec4 cross(Vec4 v1, Vec4 v2) {
-		Vec4 v = new Vec4();
-		v.x = v1.y * v2.z - v1.z * v2.y;
-		v.y = v1.z * v2.x - v1.x * v2.z;
-		v.z = v1.x * v2.y - v1.y * v2.x;
-		return v;
+		return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w;
 	}
 
 	public static Vec4 filledWith(float v) {
-		return new Vec4(v, v, v);
+		return new Vec4(v, v, v, v);
 	}
 
 	public static Vec4 filledWith(double v) {
@@ -406,6 +402,18 @@ public class Vec4 {
 		return new Vec3(x, y, z);
 	}
 
+	public Vec2 xy() {
+		return new Vec2(x, y);
+	}
+
+	public Vec2 uv() {
+		return new Vec2(x, y);
+	}
+
+	public Vec2 st() {
+		return new Vec2(z, w);
+	}
+
 	public float r() {
 		return x;
 	}
@@ -420,5 +428,21 @@ public class Vec4 {
 
 	public float a() {
 		return w;
+	}
+
+	public void setR(float r) {
+		x = r;
+	}
+
+	public void setG(float g) {
+		y = g;
+	}
+
+	public void setB(float b) {
+		z = b;
+	}
+
+	public void setA(float a) {
+		w = a;
 	}
 }
