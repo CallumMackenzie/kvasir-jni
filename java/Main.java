@@ -34,9 +34,9 @@ class Main extends KvasirEngine {
 		cam.getPos().setZ(-4);
 		shader = Shader.default3D(base);
 
-		if (!mesh.loadFromObj(base, "D:\\3D Models\\isont.obj") || !mesh.makeMaterial(base))
+		if (!mesh.loadFromObj(base, "./res/cube.obj") || !mesh.makeMaterial(base))
 			throw new RenderException("Mesh could not be loaded.");
-		mesh.setDiffuseTex(base, 0xaabbff);
+		mesh.setDiffuseTex(base, "./res/cbrick.png");
 		return true;
 	}
 
@@ -50,7 +50,6 @@ class Main extends KvasirEngine {
 		base.clear();
 		base.renderMesh3D(cam, mesh, shader);
 		base.swapBuffers();
-		System.out.println("FPS: " + Double.toString(1.0 / time.deltaD()));
 	}
 
 	protected void onClose() {

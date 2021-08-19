@@ -6,7 +6,15 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Launch Main",
+      "name": "Launch Main Linux",
+      "request": "launch",
+      "mainClass": "Main",
+      "projectName": "kvasir-jni_5cca3616",
+      "vmArgs": "-Djava.library.path='./build'"
+    },
+    {
+      "type": "java",
+      "name": "Launch Main Windows",
       "request": "launch",
       "mainClass": "Main",
       "projectName": "kvasir-jni_835b7676",
