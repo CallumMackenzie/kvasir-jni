@@ -15,7 +15,7 @@ class Main extends KvasirEngine {
 	}
 
 	public Main() {
-		super(RenderBase.Type.OPENGL);
+		super(RenderBase.Type.TERMINAL, RenderBase.Type.DIRECTX, RenderBase.Type.VULKAN);
 	}
 
 	public void start() throws KvasirException {

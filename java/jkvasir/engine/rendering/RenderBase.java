@@ -52,6 +52,22 @@ public class RenderBase {
 		return Type.NONE;
 	}
 
+	public static String typeToString(Type t) {
+		switch (t) {
+			case OPENGL:
+				return "OpenGL";
+			case VULKAN:
+				return "Vulkan";
+			case TERMINAL:
+				return "Terminal";
+			case DIRECTX:
+				return "DirectX";
+			default:
+				break;
+		}
+		return "Unknown";
+	}
+
 	public Type type() {
 		return baseTypeConvert(getType());
 	}

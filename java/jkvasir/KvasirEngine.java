@@ -9,13 +9,37 @@ public abstract class KvasirEngine {
 	public FrameManager fixedTime = new FrameManager(10);
 	public RenderBase base = null;
 
+	private RenderBase.Type[] rTypes = null;
+
 	public KvasirEngine(RenderBase.Type type) {
+		rTypes = new RenderBase.Type[] { type };
 		base = new RenderBase(type);
 	}
 
+	public KvasirEngine(RenderBase.Type... types) {
+		rTypes = types;
+		base = new RenderBase(RenderBase.Type.NONE);
+	}
+
 	protected void start(String name, int width, int height) throws KvasirException {
-		if (!base.init(name, width, height))
-			throw new KvasirException("Render base failed to initialize.");
+		if (rTypes.length == 1) {
+			if (!base.init(name, width, height))
+				throw new KvasirException(
+						"Render base (" + RenderBase.typeToString(rTypes[0]) + ") failed to initialize.");
+		} else {
+			boolean baseFound = false;
+			for (int i = 0; i < rTypes.length; ++i)
+				if (baseFound |= (base = new RenderBase(rTypes[i])).init(name, width, height))
+					break;
+				else if (base != null)
+					base.destroy();
+			if (!baseFound) {
+				String basesTried = "";
+				for (int j = 0; j < rTypes.length; ++j)
+					basesTried += RenderBase.typeToString(rTypes[j]) + (j == rTypes.length - 1 ? "" : ", ");
+				throw new KvasirException("Render base (" + basesTried + ") failed to initialize.");
+			}
+		}
 		if (!onStart())
 			throw new KvasirException("Method onStart returned false.");
 		time.nextFrameReady();
