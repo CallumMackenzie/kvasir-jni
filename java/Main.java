@@ -15,11 +15,11 @@ class Main extends KvasirEngine {
 	}
 
 	public Main() {
-		super(RenderBase.Type.TERMINAL);
+		super(RenderBase.Type.OPENGL);
 	}
 
 	public void start() throws KvasirException {
-		if (base.type() == RenderBase.Type.OPENGL)
+		if (base.type() == RenderBase.Type.TERMINAL)
 			start("Main", 64, 32);
 		else
 			start("Main", 720, 480);
@@ -36,7 +36,7 @@ class Main extends KvasirEngine {
 	protected boolean onStart() throws KvasirException {
 		base.setClearColour(0xafbfcf);
 		base.depthBufferActive(true);
-		time.setFPS(40);
+		time.setFPS(FrameManager.getRecommendedFPS(base));
 		fixedTime.setFPS(10);
 
 		cam.getPos().setZ(-4);

@@ -1,5 +1,7 @@
 package jkvasir.engine;
 
+import jkvasir.engine.rendering.RenderBase;
+
 public class FrameManager {
 
 	private long lastFrame = 0; // Nanoseconds
@@ -60,6 +62,20 @@ public class FrameManager {
 			return true;
 		}
 		return false;
+	}
+
+	public static double getRecommendedFPS(RenderBase base, int samples) {
+		long start = System.nanoTime(); // Nanoseconds
+		for (int i = 0; i < samples; ++i)
+			base.swapBuffers();
+		double duration = (double) ((System.nanoTime() - start) / 1000) / 1000.0; // Milliseconds
+		double msPerFrame = duration / (double) samples;
+		double fps = 1000.0 / msPerFrame;
+		return (double) ((int) (fps + 5.0));
+	}
+
+	public static double getRecommendedFPS(RenderBase base) {
+		return getRecommendedFPS(base, 30);
 	}
 
 }
