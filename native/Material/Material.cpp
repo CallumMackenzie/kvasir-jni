@@ -40,8 +40,8 @@ JNIEXPORT jlong JNICALL Java_jkvasir_engine_rendering_Material_getNumTextures(JN
 	if (!mat)
 		return (jlong)-1;
 	jlong nTexs = 0;
-	for (size_t i = 0; i < mat->texs.size(); ++i)
-		if (mat->texs[i] != nullptr)
+	for (size_t i = 0; i < mat->get_texs().size(); ++i)
+		if (mat->get_texs()[i] != nullptr)
 			++nTexs;
 	return nTexs;
 }
@@ -57,9 +57,9 @@ JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_Material_setTexture(JNIEnv 
 	texture_base *tex = get_native_ptr<texture_base>(env, jTexture);
 	if (!mat || !tex)
 		return;
-	while (mat->texs.size() <= (size_t)jIndex)
-		mat->texs.push_back(nullptr);
-	mat->texs[(size_t)jIndex] = tex;
+	while (mat->get_texs().size() <= (size_t)jIndex)
+		mat->get_texs().push_back(nullptr);
+	mat->get_texs()[(size_t)jIndex] = tex;
 }
 
 /*
@@ -70,11 +70,11 @@ JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_Material_setTexture(JNIEnv 
 JNIEXPORT jobject JNICALL Java_jkvasir_engine_rendering_Material_getTexture(JNIEnv *env, jobject jthis, jlong jIndex)
 {
 	material_base *mat = get_native_ptr<material_base>(env, jthis);
-	if (!mat || (long)jIndex >= mat->texs.size() || jIndex < 0)
+	if (!mat || (long)jIndex >= mat->get_texs().size() || jIndex < 0)
 		return (jobject)NULL;
 	jclass cls = env->FindClass("Ljkvasir/engine/rendering/Texture;");
 	jobject tex = env->NewObject(cls, env->GetMethodID(cls, "<init>", "()V"));
-	env->SetLongField(tex, env->GetFieldID(cls, "nativePtr", "J"), (jlong)mat->texs[(size_t)jIndex]);
+	env->SetLongField(tex, env->GetFieldID(cls, "nativePtr", "J"), (jlong)mat->get_texs()[(size_t)jIndex]);
 	return tex;
 }
 
@@ -88,9 +88,9 @@ JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_Material_freeTextures(JNIEn
 	material_base *mat = get_native_ptr<material_base>(env, jthis);
 	if (!mat)
 		return;
-	for (size_t i = 0; i < mat->texs.size(); ++i)
-		if (mat->texs[i])
-			mat->texs[i]->free_texture();
+	for (size_t i = 0; i < mat->get_texs().size(); ++i)
+		if (mat->get_texs()[i])
+			mat->get_texs()[i]->free_texture();
 }
 /*
  * Class:     jkvasir_engine_rendering_Material
@@ -102,5 +102,5 @@ JNIEXPORT jlong JNICALL Java_jkvasir_engine_rendering_Material_getNumTexturePoin
 	material_base *mat = get_native_ptr<material_base>(env, jthis);
 	if (!mat)
 		return (jlong)0;
-	return (jlong)mat->texs.size();
+	return (jlong)mat->get_texs().size();
 }

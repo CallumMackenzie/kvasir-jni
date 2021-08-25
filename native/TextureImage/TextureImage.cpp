@@ -49,15 +49,15 @@ JNIEXPORT jlongArray JNICALL Java_jkvasir_engine_rendering_TextureImage_getPixel
 	texture_image *img = get_native_ptr<texture_image>(env, jthis);
 	if (!img)
 		return (jlongArray)NULL;
-	size_t len = img->pixels.size() / 4;
+	size_t len = img->get_pixels().size() / 4;
 	jlongArray jpixels = env->NewLongArray((jsize)len);
 	std::vector<jlong> pixels;
 	for (size_t i = 0; i < len; ++i)
 		pixels.push_back(
-			(jlong)((((jlong)(img->pixels[i * 4 + 0] & 0xFF)) << 32) | // R
-					(((jlong)(img->pixels[i * 4 + 1] & 0xFF)) << 16) | // G
-					(((jlong)(img->pixels[i * 4 + 2] & 0xFF)) << 8) |  // B
-					(((jlong)(img->pixels[i * 4 + 3] & 0xFF)) << 0))); // A
+			(jlong)((((jlong)(img->get_pixels()[i * 4 + 0] & 0xFF)) << 32) | // R
+					(((jlong)(img->get_pixels()[i * 4 + 1] & 0xFF)) << 16) | // G
+					(((jlong)(img->get_pixels()[i * 4 + 2] & 0xFF)) << 8) |	 // B
+					(((jlong)(img->get_pixels()[i * 4 + 3] & 0xFF)) << 0))); // A
 	env->SetLongArrayRegion(jpixels, (jsize)0, (jsize)len, &pixels[0]);
 	pixels.clear();
 	return jpixels;
@@ -75,13 +75,13 @@ JNIEXPORT void JNICALL Java_jkvasir_engine_rendering_TextureImage_setPixels(JNIE
 		return;
 	jlong *dat = env->GetLongArrayElements(arr, NULL);
 	size_t nelems = env->GetArrayLength(arr);
-	img->pixels.clear();
+	img->get_pixels().clear();
 	for (size_t i = 0; i < nelems; ++i)
 	{
-		img->pixels.push_back(dat[i] >> 32 & 0xFF); // R
-		img->pixels.push_back(dat[i] >> 16 & 0xFF); // G
-		img->pixels.push_back(dat[i] >> 8 & 0xFF);	// B
-		img->pixels.push_back(dat[i] & 0xFF);		// A
+		img->get_pixels().push_back(dat[i] >> 32 & 0xFF); // R
+		img->get_pixels().push_back(dat[i] >> 16 & 0xFF); // G
+		img->get_pixels().push_back(dat[i] >> 8 & 0xFF);	// B
+		img->get_pixels().push_back(dat[i] & 0xFF);		// A
 	}
 	img->w = (unsigned)wid;
 	img->h = (unsigned)hei;

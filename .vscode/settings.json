@@ -14,7 +14,12 @@
 		"atomic": "cpp",
 		"ios": "cpp",
 		"system_error": "cpp",
-		"xiosbase": "cpp"
+		"xiosbase": "cpp",
+		"array": "cpp",
+		"string_view": "cpp",
+		"utility": "cpp",
+		"deque": "cpp",
+		"string": "cpp"
 	},
 	"C_Cpp.errorSquiggles": "Disabled",
 	"java.project.sourcePaths": [

@@ -35,9 +35,8 @@ JNIEXPORT jboolean JNICALL Java_jkvasir_world_Mesh3D_setDiffuseTex__Ljkvasir_eng
 	mesh3d *m = get_native_ptr<mesh3d>(env, jthis);
 	if (!base || !m)
 		return (jboolean) false;
-	DEL_PTR(m->material)
-	m->material = make_material(base, (long)col);
-	return (jboolean)((bool)m->material);
+	m->set_material(make_material(base, (long)col));
+	return (jboolean)((bool)m->get_material());
 }
 
 /*
@@ -51,9 +50,8 @@ JNIEXPORT jboolean JNICALL Java_jkvasir_world_Mesh3D_setDiffuseTex__Ljkvasir_eng
 	mesh3d *m = get_native_ptr<mesh3d>(env, jthis);
 	if (!base || !m)
 		return (jboolean) false;
-	DEL_PTR(m->material)
-	m->material = make_material(base, env->GetStringUTFChars(path, NULL));
-	return (jboolean)((bool)m->material);
+	m->set_material(make_material(base, env->GetStringUTFChars(path, NULL)));
+	return (jboolean)((bool)m->get_material());
 }
 
 /*
@@ -67,16 +65,16 @@ JNIEXPORT jboolean JNICALL Java_jkvasir_world_Mesh3D_setTexNum__Ljkvasir_engine_
 	mesh3d *m = get_native_ptr<mesh3d>(env, jthis);
 	if (!base || !m)
 		return (jboolean) false;
-	material_base *mat = m->material;
+	material_base *mat = m->get_material();
 	if (!mat)
 		return (jboolean) false;
-	while (mat->texs.size() <= (size_t)texNum)
-		mat->texs.push_back(nullptr);
+	while (mat->get_texs().size() <= (size_t)texNum)
+		mat->get_texs().push_back(nullptr);
 	texture_base *tex = base->make_texture();
 	if (!tex)
 		return (jboolean) false;
 	tex->make_png(env->GetStringUTFChars(filePath, NULL), (size_t)texNum);
-	mat->texs[(size_t)texNum] = tex;
+	mat->get_texs()[(size_t)texNum] = tex;
 	return (jboolean) true;
 }
 
@@ -91,16 +89,16 @@ JNIEXPORT jboolean JNICALL Java_jkvasir_world_Mesh3D_setTexNum__Ljkvasir_engine_
 	mesh3d *m = get_native_ptr<mesh3d>(env, jthis);
 	if (!base || !m)
 		return (jboolean) false;
-	material_base *mat = m->material;
+	material_base *mat = m->get_material();
 	if (!mat)
 		return (jboolean) false;
-	while (mat->texs.size() <= (size_t)texNum)
-		mat->texs.push_back(nullptr);
+	while (mat->get_texs().size() <= (size_t)texNum)
+		mat->get_texs().push_back(nullptr);
 	texture_base *tex = base->make_texture();
 	if (!tex)
 		return (jboolean) false;
 	tex->make_colour((long)colour, (size_t)texNum);
-	mat->texs[(size_t)texNum] = tex;
+	mat->get_texs()[(size_t)texNum] = tex;
 	return (jboolean) true;
 }
 
@@ -114,11 +112,11 @@ JNIEXPORT jobject JNICALL Java_jkvasir_world_Mesh3D_getBuffer(JNIEnv *env, jobje
 	mesh3d *m = get_native_ptr<mesh3d>(env, jthis);
 	if (!m)
 		return (jobject)NULL;
-	if (!m->buffer)
+	if (!m->get_buffer())
 		return (jobject)NULL;
 	jclass buffer_class = env->FindClass("Ljkvasir/engine/rendering/Buffer;");
 	jobject jbuff = env->NewObject(buffer_class, env->GetMethodID(buffer_class, "<init>", "()V"));
-	env->SetLongField(jbuff, env->GetFieldID(buffer_class, "nativePtr", "J"), (jlong)m->buffer);
+	env->SetLongField(jbuff, env->GetFieldID(buffer_class, "nativePtr", "J"), (jlong)m->get_buffer());
 	return jbuff;
 }
 
@@ -132,11 +130,11 @@ JNIEXPORT jobject JNICALL Java_jkvasir_world_Mesh3D_getMaterial(JNIEnv *env, job
 	mesh3d *m = get_native_ptr<mesh3d>(env, jthis);
 	if (!m)
 		return (jobject)NULL;
-	if (!m->material)
+	if (!m->get_material())
 		return (jobject)NULL;
 	jclass cls = env->FindClass("Ljkvasir/engine/rendering/Material;");
 	jobject jbuff = env->NewObject(cls, env->GetMethodID(cls, "<init>", "()V"));
-	env->SetLongField(jbuff, env->GetFieldID(cls, "nativePtr", "J"), (jlong)m->material);
+	env->SetLongField(jbuff, env->GetFieldID(cls, "nativePtr", "J"), (jlong)m->get_material());
 	return jbuff;
 }
 
@@ -151,7 +149,7 @@ JNIEXPORT jboolean JNICALL Java_jkvasir_world_Mesh3D_makeMaterial(JNIEnv *env, j
 	render_base *base = get_native_ptr<render_base>(env, jRenderBase);
 	if (!m || !base)
 		return (jboolean) false;
-	m->material = base->make_material();
+	m->set_material(base->make_material());
 	return (jboolean) true;
 }
 

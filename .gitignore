@@ -1,3 +1,4 @@
 build
 *.class
-native/lib/*
+native/lib/*.a
+native/lib/*.lib

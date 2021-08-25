@@ -5,6 +5,7 @@ import jkvasir.engine.*;
 import jkvasir.engine.rendering.*;
 
 class Main extends KvasirEngine {
+
 	public static void main(String[] args) {
 		Main main = new Main();
 		try {
@@ -15,7 +16,7 @@ class Main extends KvasirEngine {
 	}
 
 	public Main() {
-		super(RenderBase.Type.TERMINAL, RenderBase.Type.DIRECTX, RenderBase.Type.VULKAN);
+		super(RenderBase.Type.OPENGL);
 	}
 
 	public void start() throws KvasirException {

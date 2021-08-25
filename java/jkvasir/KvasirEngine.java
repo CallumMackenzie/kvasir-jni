@@ -5,6 +5,9 @@ import jkvasir.engine.rendering.RenderBase;
 import jkvasir.engine.KvasirException;
 
 public abstract class KvasirEngine {
+	static {
+		System.loadLibrary("kvasir-jni");
+	}
 	public FrameManager time = new FrameManager(60);
 	public FrameManager fixedTime = new FrameManager(10);
 	public RenderBase base = null;
@@ -12,16 +15,19 @@ public abstract class KvasirEngine {
 	private RenderBase.Type[] rTypes = null;
 
 	public KvasirEngine(RenderBase.Type type) {
+		kvInit();
 		rTypes = new RenderBase.Type[] { type };
 		base = new RenderBase(type);
 	}
 
 	public KvasirEngine(RenderBase.Type... types) {
+		kvInit();
 		rTypes = types;
 		base = new RenderBase(RenderBase.Type.NONE);
 	}
 
 	protected void start(String name, int width, int height) throws KvasirException {
+		kvInit();
 		if (rTypes.length == 1) {
 			if (!base.init(name, width, height))
 				throw new KvasirException(
@@ -57,6 +63,7 @@ public abstract class KvasirEngine {
 			perFrame();
 		}
 		onClose();
+		kvDestroy();
 	}
 
 	/**
@@ -81,4 +88,25 @@ public abstract class KvasirEngine {
 	protected abstract void onClose() throws KvasirException;
 
 	protected abstract void onFixedUpdate() throws KvasirException;
+
+	private static boolean kvasirInitialized = false;
+
+	public static void kvInit() {
+		if (kvasirInitialized)
+			return;
+		kvasirInit();
+		kvasirInitialized = true;
+	}
+
+	public static void kvDestroy() {
+		if (!kvasirInitialized)
+			return;
+		kvasirDestroy();
+		kvasirInitialized = false;
+	}
+
+	private static native void kvasirInit();
+
+	private static native void kvasirDestroy();
+
 }

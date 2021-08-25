@@ -9,16 +9,7 @@ else()
 	set(CMAKE_CXX_STANDARD 17)
 endif()
 
-include(CTest)
-enable_testing()
-
 option(BUILD_SHARED_LIBS ON)
-
-if(WIN32)
-	set(VULKAN_LINK_DIRS $ENV{VULKAN_SDK/}Lib)
-	set(VULKAN_INCLUDE_DIRS $ENV{VULKAN_SDK}/include)
-endif()
-find_package(Vulkan REQUIRED FATAL_ERROR)
 
 include_directories(
 	$ENV{JAVA_HOME}/include 
@@ -37,7 +28,6 @@ include_directories(
 link_directories(
 	./native
 	./native/lib
-	${Vulkan_LIBRARY}
 )
 add_library(
 	kvasir-jni SHARED
@@ -49,20 +39,11 @@ add_library(
 	./native/Buffer/Buffer.cpp
 	./native/Mesh3D/Mesh3D.cpp
 	./native/TextureImage/TextureImage.cpp
+	./native/KvasirEngine/KvasirEngine.cpp
 )
 target_link_libraries(
 	kvasir-jni
 	kvasir-engine
-	${Vulkan_LIBRARY}
-	glfw3
-	BulletInverseDynamics
-	BulletSoftBody
-	BulletDynamics
-	BulletCollision
-	LinearMath
-	Bullet3Common
-	Bullet3Geometry
-	BulletSoftBody
 )
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})

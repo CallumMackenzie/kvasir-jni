@@ -9,7 +9,7 @@
       "name": "Launch Main Linux",
       "request": "launch",
       "mainClass": "Main",
-      "projectName": "kvasir-jni_5cca3616",
+      "projectName": "jkvasir_6ad23cb8",
       "vmArgs": "-Djava.library.path='./build'"
     },
     {
