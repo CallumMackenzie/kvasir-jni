@@ -15,7 +15,7 @@ class Main extends KvasirEngine {
 	}
 
 	public Main() {
-		super(RenderBase.Type.OPENGL);
+		super(RenderBase.Type.TERMINAL, RenderBase.Type.DIRECTX, RenderBase.Type.VULKAN);
 	}
 
 	public void start() throws KvasirException {
@@ -55,16 +55,16 @@ class Main extends KvasirEngine {
 		cam.debugControls(base, time.delta(), 1.4f, 3.f);
 
 		base.clear();
-		// base.renderMesh3D(cam, mesh, shader);
-		shader.use();
-		shader.uInt1("diff", 0);
-		mesh.getBuffer().bindVAO();
-		mesh.getMaterial().bind();
-		shader.uMat4("transform", mesh.modelMatrix());
-		shader.uMat4("view", cam.view().inverse());
-		shader.uMat4("projection", cam.perspective());
-		shader.uMat4("rot", Mat4.rotation(mesh.rot));
-		shader.render(mesh.getNumTris());
+		base.renderMesh3D(cam, mesh, shader);
+		// shader.use();
+		// shader.uInt1("diff", 0);
+		// mesh.getBuffer().bindVAO();
+		// mesh.getMaterial().bind();
+		// shader.uMat4("transform", mesh.modelMatrix());
+		// shader.uMat4("view", cam.view().inverse());
+		// shader.uMat4("projection", cam.perspective());
+		// shader.uMat4("rot", Mat4.rotation(mesh.rot));
+		// shader.render(mesh.getNumTris());
 		base.swapBuffers();
 	}
 

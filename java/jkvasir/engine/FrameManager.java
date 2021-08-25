@@ -64,18 +64,18 @@ public class FrameManager {
 		return false;
 	}
 
-	public static double getRecommendedFPS(RenderBase base, int samples) {
+	public static double getRecommendedFPS(RenderBase base, int samples, double offset) {
 		long start = System.nanoTime(); // Nanoseconds
 		for (int i = 0; i < samples; ++i)
 			base.swapBuffers();
 		double duration = (double) ((System.nanoTime() - start) / 1000) / 1000.0; // Milliseconds
 		double msPerFrame = duration / (double) samples;
 		double fps = 1000.0 / msPerFrame;
-		return (double) ((int) (fps + 5.0));
+		return (double) ((int) (fps + offset));
 	}
 
 	public static double getRecommendedFPS(RenderBase base) {
-		return getRecommendedFPS(base, 30);
+		return getRecommendedFPS(base, 30, 5.0);
 	}
 
 }
